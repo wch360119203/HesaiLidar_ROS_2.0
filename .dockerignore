@@ -1,0 +1,10 @@
+.git
+build
+devel
+install
+log
+*.pcap
+*.bag
+*.db3
+*.mcap
+docs

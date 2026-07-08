@@ -1,0 +1,25 @@
+services:
+  hesai-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: hesai-ros2-dev:humble
+    container_name: hesai-ros2-dev
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      ROS_VERSION: "2"
+      ROS_DISTRO: humble
+      ROS_DOMAIN_ID: "0"
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+    volumes:
+      - .:/workspaces/hesai_ws/src/hesai_ros_driver:cached
+      - C:/code/HesaiLidar_SDK_2.0:/workspaces/hesai_ws/src/hesai_ros_driver/src/driver/HesaiLidar_SDK_2.0:cached
+      - C:/code/data:/data:rw
+    working_dir: /workspaces/hesai_ws
+    command: bash -c "source /opt/ros/humble/setup.bash && exec bash"
+
